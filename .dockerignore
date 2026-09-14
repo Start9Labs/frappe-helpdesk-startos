@@ -5,3 +5,8 @@ javascript
 ncc-cache
 docker-images
 *.s9pk
+support-server/server
+support-server/web/node_modules
+support-server/web/dist
+support-server/web/.angular
+support-server/start9_support/start9_support/public/portal

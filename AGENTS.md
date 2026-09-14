@@ -48,8 +48,24 @@ Things that will bite you:
 - **The site is created once, at install**, by a `runUntilSuccess` chain — MariaDB has to be
   running for `bench new-site`, which is why this is not a plain `setupOnInit` step. The database
   name is pinned rather than left to bench, which would otherwise generate a random one per site.
-- **`--install-app helpdesk` is enough**; frappe's `install_app` installs the `required_apps`
-  from an app's hooks first, which is how `telephony` gets in.
+- **`--install-app helpdesk` is enough for Helpdesk**; frappe's `install_app` installs the
+  `required_apps` from an app's hooks first, which is how `telephony` gets in. `start9_support`
+  is installed after it, and the update chain installs it before `migrate` on a site that
+  predates it — `migrate` alone never installs an app.
+- **`start9_support` is not in `apps.json`.** It is a subdirectory of `Start9Labs/support-server`,
+  a private repository, which `bench get-app` cannot install and an anonymous build cannot clone;
+  it comes in as the `support-server` submodule (SSH URL, so it needs Start9 access — `git
+  submodule update --init` before packing), and the `Dockerfile` does get-app's work by hand
+  (copy into `apps/`, `pip install -e`, the `sites/assets` link). Bump the submodule to move the
+  app and the portal together — they are the same commit — and rebuild.
+- **The image builds the portal** from that clone's `web/` (an Angular build; needs the network at
+  build time and a couple of GB of RAM); nothing is committed. `assets/taiga-ui` is a symlink into
+  that build because nginx serves `/assets` from the assets directory and never proxies it.
+- **Don't drop `nginx/frappe.conf.template`.** Frappe's socket server rejects a connection whose
+  `Host` and `Origin` headers differ and fetches the session from `Origin`; upstream's template
+  sends the browser's host and the site name, so live updates only worked when the two matched.
+  The override names this nginx (`127.0.0.1:8080`, since every subcontainer shares the network
+  namespace) in both. Keep it in step with upstream's template when bumping the image.
 - **`bench --site … enable-scheduler` in the install chain is load-bearing.** `bench new-site`
   reads `System Settings.enable_scheduler` before the site it is creating exists, so it always
   writes it back as off.

@@ -49,6 +49,7 @@ async function createSite(
     5,
   )
   const app = progress.addPhase(i18n('Installing the Helpdesk app'), 4)
+  const support = progress.addPhase(i18n('Installing the Start9 support app'), 2)
 
   starting.start()
 
@@ -75,6 +76,7 @@ async function createSite(
     '--admin-password "$ADMIN_PASSWORD"',
     `--db-name ${dbName}`,
     '--install-app helpdesk',
+    '--install-app start9_support',
     siteName,
   ].join(' ')
 
@@ -125,7 +127,7 @@ async function createSite(
           DB_ROOT_PASSWORD: dbRootPassword,
           ADMIN_PASSWORD: throwawayAdminPassword,
         },
-        ...siteProgress(starting, framework, app),
+        ...siteProgress(starting, framework, app, support),
       },
       requires: ['configurator'],
     })
@@ -134,6 +136,7 @@ async function createSite(
   starting.complete()
   framework.complete()
   app.complete()
+  support.complete()
 
   await storeJson.merge(effects, { dbRootPassword })
 }
@@ -143,10 +146,11 @@ function siteProgress(
   starting: utils.PhaseHandle,
   framework: utils.PhaseHandle,
   app: utils.PhaseHandle,
+  support: utils.PhaseHandle,
 ) {
   const doctypes =
-    /Updating DocTypes for (frappe|helpdesk)[^[]*\[[^\]]*\]\s*(\d+)%/g
-  let stage: 'starting' | 'framework' | 'app' = 'starting'
+    /Updating DocTypes for (frappe|helpdesk|start9_support)[^[]*\[[^\]]*\]\s*(\d+)%/g
+  let stage: 'starting' | 'framework' | 'app' | 'support' = 'starting'
   let tail = ''
 
   return {
@@ -167,10 +171,20 @@ function siteProgress(
         framework.complete()
         app.start()
       }
+      if (stage === 'app' && text.includes('Installing start9_support...')) {
+        stage = 'support'
+        app.complete()
+        support.start()
+      }
 
       const latest = [...text.matchAll(doctypes)].pop()
       if (latest) {
-        const phase = latest[1] === 'frappe' ? framework : app
+        const phase =
+          latest[1] === 'frappe'
+            ? framework
+            : latest[1] === 'helpdesk'
+              ? app
+              : support
         phase.setTotal(100)
         phase.setDone(Number(latest[2]))
       }
@@ -229,7 +243,12 @@ async function runSiteMigrate(effects: T.Effects): Promise<void> {
     })
     .addOneshot('migrate', {
       subcontainer: benchSub,
-      exec: { command: bench(`bench --site ${siteName} migrate`) },
+      // An instance from before the Start9 app gets it installed here; migrate alone never installs an app.
+      exec: {
+        command: bench(
+          `(bench --site ${siteName} list-apps | grep -q '^start9_support' || bench --site ${siteName} install-app start9_support) && bench --site ${siteName} migrate`,
+        ),
+      },
       requires: ['configurator'],
     })
     .runUntilSuccess(INSTALL_TIMEOUT)

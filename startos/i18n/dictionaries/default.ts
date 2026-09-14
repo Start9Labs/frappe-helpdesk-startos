@@ -12,10 +12,12 @@ const dict = {
   // interfaces.ts
   'Web UI': 6,
   'The Frappe Helpdesk agent and customer portals': 7,
+  'The Start9 support portal; Helpdesk is at /helpdesk on the same address': 27,
   // init/bootstrapHelpdesk.ts
   'Starting the database': 8,
   'Installing the Frappe framework': 9,
   'Installing the Helpdesk app': 10,
+  'Installing the Start9 support app': 26,
   'Migrating the database': 11,
   // init/watchCredentials.ts
   'Set the Administrator password before signing in to Frappe Helpdesk': 12,

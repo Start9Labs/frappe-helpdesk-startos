@@ -12,9 +12,10 @@ the links it emails, and how outgoing mail is sent. Everything else — agents, 
 the knowledge base and the mailbox tickets arrive on — is set up inside Helpdesk exactly as
 upstream describes.
 
-The same address serves both sides of Helpdesk. Staff who sign in as agents get the agent
-portal; everyone else gets the customer portal, where they raise and follow their own tickets
-and read your help articles.
+The address opens on the Start9 support portal, a chat-style front for your customers built on
+Helpdesk by the `start9_support` app. Helpdesk itself — the agent portal for staff, its own
+customer portal, settings, reports — is at `/helpdesk` on the same address, and the Frappe desk at
+`/app`.
 
 ## Getting set up
 
@@ -23,7 +24,7 @@ before it will start. The progress bar tells you where it is.
 
 1. Run the **Set Administrator Password** action and copy the password it shows you. This is
    the only time it is displayed, and Helpdesk will not start until you have run it.
-2. Start Helpdesk and open its **Web UI** interface.
+2. Start Helpdesk and open its **Web UI** interface, then add `/helpdesk` to the address.
 3. Sign in with the username `Administrator` and that password.
 
 Before you invite anyone or connect a mailbox, give the **Web UI** interface an address people

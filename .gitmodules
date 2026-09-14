@@ -1,0 +1,4 @@
+[submodule "support-server"]
+	path = support-server
+	url = git@github.com:Start9Labs/support-server.git
+	branch = feat/portal-backend

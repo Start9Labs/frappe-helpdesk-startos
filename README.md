@@ -38,7 +38,12 @@ agreements, with a knowledge base and saved replies alongside. Upstream is
 The application image is **built by this package from its own `Dockerfile`**, not pulled from a
 registry. It follows upstream's own layered recipe — `bench init` against `frappe/build`, the
 resulting bench copied onto `frappe/base` — with `apps.json` pinning the Helpdesk app and
-`telephony`, which Helpdesk requires. The image upstream publishes cannot be used: its build
+`telephony`, which Helpdesk requires, plus `start9_support`, the Start9 app that turns Helpdesk
+into the Start9 support portal, taken from the
+[`Start9Labs/support-server`](https://github.com/Start9Labs/support-server) submodule (a private
+repository). The build also compiles that portal (the same commit's `web/`) into the image, and
+replaces the nginx template's socket.io block so live updates work whatever address the site is
+opened on. The image upstream publishes cannot be used: its build
 passes the app list as a build argument to a Containerfile that reads it from a secret mount, so
 what it publishes is a bare Frappe bench with neither app installed, for amd64 only. The build
 also bakes in the NLTK corpora that knowledge-base keyword extraction would otherwise download
@@ -117,9 +122,11 @@ same origin.
 
 | Interface | Type | Port | Path | Serves |
 | --- | --- | --- | --- | --- |
-| `ui` | ui | 8080 | `/helpdesk` | The Helpdesk single-page app — the agent portal for staff, the customer portal for everyone else, chosen from the signed-in session. |
+| `ui` | ui | 8080 | `/` | The Start9 support portal (customer sign-in, chats). |
 
-The Frappe desk at `/app` and the sign-in page at `/login` are reachable on the same address.
+Helpdesk's own single-page app is at `/helpdesk` on the same address (the agent portal for staff,
+its customer portal for everyone else) and the Frappe desk at `/app`. The portal owns `/login`,
+`/signup`, `/reset` and `/verify`; Helpdesk's sign-in redirects there.
 
 Gunicorn (8000), MariaDB (3306) and both Redis instances are bound to loopback; socket.io
 (9000) binds all interfaces, because upstream's realtime server takes no bind address. All of
@@ -132,8 +139,11 @@ does, once a user configures a mail server.
 ## Installation and First-Run Flow
 
 Installing creates the site, which takes several minutes: the database schema is built and the
-Frappe framework, `telephony` and Helpdesk are each installed in turn. Progress is reported in
-three phases driven by `bench`'s own output.
+Frappe framework, `telephony`, Helpdesk and `start9_support` are each installed in turn. Progress
+is reported in four phases driven by `bench`'s own output. Installing `start9_support` also
+configures the site the way the portal needs it — the ticket statuses, `HD Settings`, the SLA
+condition, the Dux agent, the webhook records — and an update installs it on a site that predates
+it before migrating.
 
 Upstream expects the operator to run Frappe's setup wizard, which is what creates the first
 agent account. This package does not: it creates the site non-interactively with a throwaway
@@ -255,6 +265,10 @@ StartOS reinstalls a restored package stopped, so it has to be started.
    pinned to a release tag, but `telephony` publishes no tags and the framework's branch doubles
    as the tag of the base images, so a rebuild of the same package version can carry newer
    framework code. Published `.s9pk` artifacts are fixed.
+8. **The site root is the Start9 support portal, not Helpdesk's.** The `start9_support` app serves
+   its portal build at `/` and takes over `/login`; Helpdesk's own UI moves to `/helpdesk`. The
+   app's settings (Dux, the webhooks, ops-server, the registry) are Frappe documents under
+   **Start9 Support Settings**, not StartOS actions.
 
 ---
 
@@ -295,7 +309,7 @@ startos_managed_env_vars:
   - CLIENT_MAX_BODY_SIZE
 dependencies: none
 interfaces:
-  ui: { type: ui, port: 8080 }
+  ui: { type: ui, port: 8080, path: / }
 actions:
   - set-admin-password
   - set-primary-url

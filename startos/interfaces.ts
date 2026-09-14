@@ -11,12 +11,14 @@ export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
   const ui = sdk.createInterface(effects, {
     name: i18n('Web UI'),
     id: 'ui',
-    description: i18n('The Frappe Helpdesk agent and customer portals'),
+    description: i18n(
+      'The Start9 support portal; Helpdesk is at /helpdesk on the same address',
+    ),
     type: 'ui',
     masked: false,
     schemeOverride: null,
     username: null,
-    path: '/helpdesk',
+    path: '/',
     query: {},
   })
 

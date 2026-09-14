@@ -28,6 +28,8 @@ export default {
     23: 'La dirección que Frappe Helpdesk incluía en los enlaces que envía por correo ya no está disponible, así que ha vuelto a una dirección local. Los enlaces que se envíen a partir de ahora solo funcionarán dentro de tu red hasta que elijas otra dirección.',
     24: 'Configurar el correo (SMTP)',
     25: 'Elige cómo envía correo saliente Frappe Helpdesk — invitaciones a agentes, notificaciones y restablecimientos de contraseña. Usa el servidor SMTP del sistema de StartOS, tu propio proveedor, o desactívalo. La recepción de correo como tickets se configura dentro de Helpdesk en Ajustes, y un buzón configurado allí tiene prioridad sobre este.',
+    26: 'Instalando la aplicación de soporte de Start9',
+    27: 'El portal de soporte de Start9; Helpdesk está en /helpdesk en la misma dirección',
   },
   de_DE: {
     0: 'Starte Frappe Helpdesk!',
@@ -56,6 +58,8 @@ export default {
     23: 'Die Adresse, die Frappe Helpdesk in die per E-Mail versandten Links eingesetzt hat, ist nicht mehr verfügbar; es wurde auf eine lokale Adresse zurückgeschaltet. Ab jetzt versandte Links funktionieren nur noch im eigenen Netzwerk, bis Sie eine andere Adresse wählen.',
     24: 'E-Mail einrichten (SMTP)',
     25: 'Wählen Sie, wie Frappe Helpdesk ausgehende E-Mails versendet — Agenteneinladungen, Benachrichtigungen und Passwort-Zurücksetzungen. Nutzen Sie den SMTP-Server des StartOS-Systems, Ihren eigenen Anbieter, oder schalten Sie es ab. Der Empfang von E-Mails als Tickets wird in Helpdesk unter Einstellungen eingerichtet, und ein dort konfiguriertes Postfach hat Vorrang vor diesem.',
+    26: 'Installiere die Start9-Support-App',
+    27: 'Das Start9-Supportportal; Helpdesk ist unter /helpdesk auf derselben Adresse',
   },
   pl_PL: {
     0: 'Uruchamianie Frappe Helpdesk!',
@@ -84,6 +88,8 @@ export default {
     23: 'Adres, który Frappe Helpdesk umieszczał w wysyłanych e-mailem odnośnikach, nie jest już dostępny, więc nastąpił powrót do adresu lokalnego. Odnośniki wysyłane od teraz będą działać tylko w Twojej sieci, dopóki nie wybierzesz innego adresu.',
     24: 'Skonfiguruj pocztę (SMTP)',
     25: 'Wybierz, jak Frappe Helpdesk wysyła pocztę wychodzącą — zaproszenia dla agentów, powiadomienia i resetowanie haseł. Użyj serwera SMTP systemu StartOS, własnego dostawcy albo wyłącz wysyłkę. Odbieranie poczty jako zgłoszeń konfiguruje się w Helpdesku w Ustawieniach, a skrzynka skonfigurowana tam ma pierwszeństwo przed tą.',
+    26: 'Instalowanie aplikacji wsparcia Start9',
+    27: 'Portal wsparcia Start9; Helpdesk jest pod /helpdesk pod tym samym adresem',
   },
   fr_FR: {
     0: 'Démarrage de Frappe Helpdesk !',
@@ -112,5 +118,7 @@ export default {
     23: "L'adresse que Frappe Helpdesk insérait dans les liens envoyés par e-mail n'est plus disponible ; il est revenu à une adresse locale. Les liens envoyés désormais ne fonctionneront que sur votre propre réseau jusqu'à ce que vous choisissiez une autre adresse.",
     24: 'Configurer la messagerie (SMTP)',
     25: "Choisissez comment Frappe Helpdesk envoie le courrier sortant — invitations d'agents, notifications et réinitialisations de mot de passe. Utilisez le serveur SMTP du système StartOS, votre propre fournisseur, ou désactivez-le. La réception du courrier sous forme de tickets se configure dans Helpdesk sous Paramètres, et une boîte configurée là-bas est prioritaire sur celle-ci.",
+    26: 'Installation de l’application d’assistance Start9',
+    27: 'Le portail d’assistance Start9 ; Helpdesk est à /helpdesk à la même adresse',
   },
 } satisfies Record<string, LangDict>
