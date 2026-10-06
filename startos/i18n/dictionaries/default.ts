@@ -26,13 +26,13 @@ const dict = {
   'Use these credentials to sign in to Frappe Helpdesk.': 16,
   Username: 17,
   Password: 18,
-  // actions/setPrimaryUrl.ts
+  'Replaces the Administrator password. The current password stops working, and the new one is shown only once.': 26,
+  // primaryUrl.ts
   Address: 19,
   'Set Primary Address': 20,
   'Choose the address Frappe Helpdesk puts in the links it emails — ticket updates, agent invitations and customer portal links. A local address works for testing, but only a domain or Tor address is reachable for people outside your network.': 21,
-  // init/watchPrimaryUrl.ts
-  'Primary Address Changed': 22,
-  'The address Frappe Helpdesk put in the links it emails is no longer available, so it has fallen back to a local one. Links sent from now on will only work on your own network until you choose another address.': 23,
+  // init/primaryUrlTask.ts
+  'Choose the address Frappe Helpdesk puts in the links it emails.': 23,
   // actions/manageSmtp.ts
   'Configure Email (SMTP)': 24,
   'Choose how Frappe Helpdesk sends outgoing mail — agent invitations, notifications and password resets. Use the StartOS system SMTP server, your own provider, or turn it off. Receiving mail as tickets is set up inside Helpdesk under Settings, and a mailbox configured there takes precedence over this one.': 25,

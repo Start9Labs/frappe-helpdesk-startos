@@ -17,12 +17,16 @@ const SET_PASSWORD_TIMEOUT = 300_000
 export const setAdminPassword = sdk.Action.withoutInput(
   'set-admin-password',
 
-  async () => ({
+  async ({ effects }) => ({
     name: i18n('Set Administrator Password'),
     description: i18n(
       'Generate a new random password for the Administrator account and apply it. Use this to set the first password, or if you are locked out of Frappe Helpdesk.',
     ),
-    warning: null,
+    warning: (await storeJson.read((s) => s.adminPassword).const(effects))
+      ? i18n(
+          'Replaces the Administrator password. The current password stops working, and the new one is shown only once.',
+        )
+      : null,
     allowedStatuses: 'only-stopped',
     group: null,
     visibility: 'enabled',

@@ -1,5 +1,6 @@
 import { storeJson } from './fileModels/store.json'
 import { i18n } from './i18n'
+import { primaryUrl } from './primaryUrl'
 import { sdk } from './sdk'
 import {
   backendPort,
@@ -53,6 +54,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
   const smtpSub = getHelpdeskSub(effects, 'smtp')
 
   const smtp = await resolveSmtp(effects, store.smtp)
+  const url = await primaryUrl.bestUsable(effects).const()
 
   return (
     sdk.Daemons.of(effects)
@@ -101,7 +103,9 @@ export const main = sdk.setupMain(async ({ effects }) => {
       })
       .addOneshot('configurator', {
         subcontainer: configuratorSub,
-        exec: { command: bench(configuratorScript(store.primaryUrl ?? null)) },
+        exec: {
+          command: bench(configuratorScript(url && new URL(url).origin)),
+        },
         requires: ['seed-sites', 'mariadb', 'redis-cache', 'redis-queue'],
       })
       // Nothing requires this, so a bad relay cannot hold up the service.
