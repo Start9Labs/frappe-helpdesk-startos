@@ -89,7 +89,7 @@ One, and it is not upstream configuration a user would edit.
 
 | Model | File | Ownership |
 | --- | --- | --- |
-| `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the address chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
+| `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the URL chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
 
 The bench's global configuration — the database host and port, the three redis URLs, the
 socket.io port and `host_name` — is **not** a file model. The `configurator` oneshot re-asserts
@@ -121,6 +121,9 @@ same origin.
 
 The Frappe desk at `/app` and the sign-in page at `/login` are reachable on the same address.
 
+**Open UI** opens the interface at the primary address (see **Set Primary Address** below), so
+staff land on the origin Helpdesk builds its links from.
+
 Gunicorn (8000), MariaDB (3306) and both Redis instances are bound to loopback; socket.io
 (9000) binds all interfaces, because upstream's realtime server takes no bind address. All of
 them sit inside the package's own network namespace, so only its subcontainers can reach them
@@ -147,12 +150,14 @@ and with it off incoming email, SLA status updates, ticket auto-close and search
 all silently dead on a site that otherwise looks healthy — so "email is not arriving" here is a
 mail-account problem, not a scheduler one.
 
-A primary address is chosen for the user rather than demanded of them: init picks the `.local`
-address at install, so a fresh instance works immediately. It matters because Helpdesk builds
-absolute links — ticket updates, agent invitations, customer portal links — and in background
-jobs, where that mail is generated, there is no request whose `Host` header it could read. The
-`.local` default is fine for testing and useless for anyone outside the network, so a real
-deployment runs **Set Primary Address** once a domain or Tor address exists.
+Install also raises an `important` task to choose a primary address, built with
+`sdk.setupPrimaryUrl` (`startos/primaryUrl.ts`). Until it is chosen, Helpdesk uses the
+interface's preferred address — a public domain (HTTPS first), else the `.local` address — so a
+fresh instance works immediately. It matters because Helpdesk builds absolute links — ticket
+updates, agent invitations, customer portal links — and in background jobs, where that mail is
+generated, there is no request whose `Host` header it could read. A `.local` address is fine for
+testing and useless for anyone outside the network, so a real deployment runs **Set Primary
+Address** once a domain or Tor address exists.
 
 Public signup is disabled, which is upstream's default; customers are invited or created from
 tickets.
@@ -168,18 +173,23 @@ directs the user there — and again whenever the password is lost or should be 
 stores a copy the user can look up afterwards, so a run is the only way to recover access.
 
 It changes only the `Administrator` account's password in the database; every other account is
-managed inside Helpdesk. It is safe to repeat, and each run invalidates the previous password.
+managed inside Helpdesk. It is safe to repeat, and each run invalidates the previous password, so
+once a password has been issued it asks for confirmation before running.
 It takes under a minute, and it runs while the service is stopped because it starts its own
 copy of the database to apply the change. Starting the service afterwards is the user's next
 step.
 
-**Set Primary Address** records which of the service's addresses goes into emailed links. It is
-never required — init picks one — so run it when a `.local` default needs replacing with a real
-domain or Tor address. It writes `store.json` only; the value reaches frappe as `host_name` on
-the next start, so a change needs a restart to take effect. It is instant and safe to repeat.
+**Set Primary Address** records which of the service's addresses goes into emailed links. Its
+task asks for it after install, and again whenever the chosen hostname is no longer one of the
+interface's addresses; run it also when a `.local` address needs replacing with a real domain or
+Tor address. It offers the `ui` interface's URLs, preselecting the preferred one, and stores the
+chosen URL in `store.json`; a running service restarts, and the `configurator` oneshot passes the
+origin of that URL, followed to its hostname's current port and scheme, to frappe as `host_name`.
+It is instant and safe to repeat.
 
 **Configure Email (SMTP)** decides how outgoing mail is sent: off, the StartOS system SMTP
-server, or a provider the user supplies. Like the address, it is applied on the next start.
+server, or a provider the user supplies. Like the address, saving it restarts a running service,
+which applies it.
 Helpdesk validates the relay when it saves the account, so bad credentials leave mail switched
 off and log a line beginning `[smtp]` rather than failing the start. It covers **outgoing mail
 only** — agent invitations, notifications, password resets. Receiving mail as tickets is
@@ -188,7 +198,7 @@ account for anything sent on a ticket.
 
 ## Tasks
 
-One, and it blocks startup.
+Two. The first blocks startup.
 
 - **Set the Administrator password** — raised at install, and after any restart, while
   `store.json` holds no Administrator password. Severity `critical`, so the service will not
@@ -196,10 +206,13 @@ One, and it blocks startup.
   `set-admin-password` action clears it permanently; it cannot return once a password has been
   issued, because rotating replaces the stored value rather than removing it.
 
-Losing the primary address raises **no** task. Init substitutes the `.local` address and posts a
-`warning` notification instead, so the service keeps running and the user is told its emailed
-links have become local-only. The write is what stops the notice repeating: it re-runs init,
-which then finds a valid address and returns.
+- **Set Primary Address** — raised while no primary URL is stored, or while the stored URL's
+  hostname is not one of the `ui` interface's addresses (a domain removed, Tor disabled).
+  Severity `important`: the service keeps running on the preferred address meanwhile, and goes
+  back to the stored choice if its hostname returns, since the store is never overwritten. It
+  comes from `primaryUrl.setupTask` and re-runs when the interface's addresses change; a port
+  change alone does not raise it. Choosing an address, or the stored hostname returning, clears
+  it.
 
 ## Health Checks
 
@@ -302,6 +315,7 @@ actions:
   - manage-smtp
 tasks:
   - { action: set-admin-password, severity: critical }
+  - { action: set-primary-url, severity: important }
 health_checks:
   - frontend
 ```

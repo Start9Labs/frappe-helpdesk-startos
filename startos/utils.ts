@@ -14,24 +14,7 @@ export const siteName = 'helpdesk.localhost'
 
 export const uiMultiHostId = 'ui-multi'
 export const uiInterfaceId = 'ui'
-
-// Origins only: frappe appends its own paths to host_name, and the interface carries `/helpdesk`.
-export const getOrigins = (effects: T.Effects): Promise<string[]> =>
-  sdk.host
-    .getOwn(effects, uiMultiHostId, (host) => {
-      const iface =
-        host &&
-        Object.values(host.bindings)
-          .flatMap((b) => Object.values(b.interfaces))
-          .find((i) => i.id === uiInterfaceId)
-      if (!iface) return []
-      return [
-        ...new Set(
-          iface.addressInfo.nonLocal.format('url').map((u) => u.origin),
-        ),
-      ]
-    })
-    .const()
+export const uiPath = '/helpdesk'
 
 export const benchDir = '/home/frappe/frappe-bench'
 export const sitesDir = `${benchDir}/sites`

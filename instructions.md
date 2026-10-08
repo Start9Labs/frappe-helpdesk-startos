@@ -28,8 +28,9 @@ before it will start. The progress bar tells you where it is.
 
 Before you invite anyone or connect a mailbox, give the **Web UI** interface an address people
 outside your network can reach — add a domain, or enable it on Tor — then run **Set Primary
-Address** and pick it. Helpdesk puts that address in every link it emails, and it starts out
-using your local one, which nobody outside your network can open.
+Address** and pick it — a task reminds you. Helpdesk puts that address in every link it emails,
+and until you choose, it uses a domain if you have added one, otherwise your local address, which
+nobody outside your network can open.
 
 You are now in the agent portal, with a sample ticket waiting to show you how the interface
 works.
@@ -66,12 +67,15 @@ Helpdesk searches when suggesting replies to your agents.
 
 **Set Administrator Password** generates a new random password, applies it, and shows it to
 you. Run it again whenever you need a new one — it is the only way to recover a lost
-Administrator password, because nothing stores a copy you can look up. It affects only the
+Administrator password, because nothing stores a copy you can look up. Once a password exists,
+it asks you to confirm first, since the current one stops working. It affects only the
 `Administrator` account; everyone else is managed inside Helpdesk under **Settings → Agents**.
 
-**Set Primary Address** chooses which of Helpdesk's addresses goes into the links it emails.
-Restart afterwards for the change to take effect. If the address you picked ever goes away,
-Helpdesk falls back to your local one and tells you so — pick another when that happens.
+**Set Primary Address** chooses which of Helpdesk's addresses goes into the links it emails, and
+which one **Open UI** opens. A running Helpdesk restarts to apply it. If the address you picked
+ever goes away, its task comes back and Helpdesk uses another of its addresses until you pick a
+new one or the old one returns. A change of port alone, as after a restore, is followed without
+asking.
 
 **Configure Email (SMTP)** decides how Helpdesk sends agent invitations, notifications and
 password resets:
@@ -81,9 +85,9 @@ password resets:
 - **Custom Credentials** — your own provider: host, port, whether it uses TLS or STARTTLS, the
   address mail comes from, and your username and password.
 
-The setting applies the next time Helpdesk starts, so restart afterwards. If the details are
-wrong, Helpdesk refuses them and carries on with sending switched off rather than failing to
-start — check the service logs for a line beginning `[smtp]`.
+A running Helpdesk restarts to apply the setting. If the details are wrong, Helpdesk refuses
+them and carries on with sending switched off rather than failing to start — check the service
+logs for a line beginning `[smtp]`.
 
 ### Backups
 
