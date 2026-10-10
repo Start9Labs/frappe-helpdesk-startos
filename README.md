@@ -38,11 +38,9 @@ agreements, with a knowledge base and saved replies alongside. Upstream is
 The application image is **built by this package from its own `Dockerfile`**, not pulled from a
 registry. It follows upstream's own layered recipe — `bench init` against `frappe/build`, the
 resulting bench copied onto `frappe/base` — with `apps.json` pinning the Helpdesk app and
-`telephony`, which Helpdesk requires. The image upstream publishes cannot be used: its build
-passes the app list as a build argument to a Containerfile that reads it from a secret mount, so
-what it publishes is a bare Frappe bench with neither app installed, for amd64 only. The build
-also bakes in the NLTK corpora that knowledge-base keyword extraction would otherwise download
-from the internet at runtime.
+`telephony`, which Helpdesk requires. The package builds its own image for both supported
+architectures and bakes in the NLTK corpora that knowledge-base keyword extraction would
+otherwise download from the internet at runtime.
 
 MariaDB and Redis come from their official images, unmodified.
 
@@ -133,6 +131,9 @@ Nothing in the package requires outbound internet access. Sending and receiving 
 does, once a user configures a mail server.
 
 ## Installation and First-Run Flow
+
+Updates run `bench migrate` during init against the existing site; a failed migration rolls the
+update back rather than starting the service with a partially updated schema.
 
 Installing creates the site, which takes several minutes: the database schema is built and the
 Frappe framework, `telephony` and Helpdesk are each installed in turn. Progress is reported in
