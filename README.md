@@ -132,9 +132,6 @@ does, once a user configures a mail server.
 
 ## Installation and First-Run Flow
 
-Updates run `bench migrate` during init against the existing site; a failed migration rolls the
-update back rather than starting the service with a partially updated schema.
-
 Installing creates the site, which takes several minutes: the database schema is built and the
 Frappe framework, `telephony` and Helpdesk are each installed in turn. Progress is reported in
 three phases driven by `bench`'s own output.
@@ -162,6 +159,9 @@ Address** once a domain or Tor address exists.
 
 Public signup is disabled, which is upstream's default; customers are invited or created from
 tickets.
+
+Updates run `bench migrate` during init against the existing site; a failed migration rolls the
+update back rather than starting the service with a partially updated schema.
 
 ## Actions
 
