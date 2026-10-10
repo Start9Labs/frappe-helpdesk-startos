@@ -5,15 +5,20 @@ than pulling one. `apps.json` is the pin: `bench init` clones the apps listed th
 built on the `frappe/build` and `frappe/base` images, and `Dockerfile`'s `FRAPPE_BRANCH` selects
 both the framework branch and the tag of those two base images.
 
-The image upstream publishes at `ghcr.io/frappe/helpdesk` is not usable — see `AGENTS.md` — so
-there is no image tag to track.
+This package builds its own image for both supported architectures, so upstream's
+`ghcr.io/frappe/helpdesk` image tag is not the artifact to track.
 
 ## Determining the upstream version
 
-The package version's upstream part is the Helpdesk release tag, without its `v`:
+The package version's upstream part is the Helpdesk release tag, without its `v`. List tags and
+release metadata rather than relying on GitHub's Latest badge, select the highest stable
+application version, excluding asset tags and prereleases, and confirm its source tag resolves
+before pinning it (`TAG` is the selected `v`-prefixed release tag):
 
 ```bash
-gh release view -R frappe/helpdesk --json tagName -q .tagName
+gh api repos/frappe/helpdesk/tags --paginate --jq '.[].name'
+gh api repos/frappe/helpdesk/releases --paginate --jq '.[] | [.tag_name, .prerelease, .draft] | @tsv'
+git ls-remote https://github.com/frappe/helpdesk.git "refs/tags/$TAG"
 ```
 
 Two things move independently of it and are not pinned to a release:

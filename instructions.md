@@ -89,6 +89,11 @@ A running Helpdesk restarts to apply the setting. If the details are wrong, Help
 them and carries on with sending switched off rather than failing to start — check the service
 logs for a line beginning `[smtp]`.
 
+### Updates
+
+Updating migrates your existing site before Helpdesk starts. Allow it to finish before opening
+the web interface; if migration fails, the update is rolled back.
+
 ### Backups
 
 A backup contains your tickets and their history, your contacts and customers, your help
