@@ -10,11 +10,10 @@ This package builds its own image for both supported architectures, so upstream'
 
 ## Determining the upstream version
 
-The package version's upstream part is the Helpdesk release tag, without its `v`:
-
-List tags and release metadata rather than relying on GitHub's Latest badge. Select the
-highest stable application version, excluding asset tags and prereleases, and confirm its
-source tag resolves before pinning it (`TAG` is the selected `v`-prefixed release tag):
+The package version's upstream part is the Helpdesk release tag, without its `v`. List tags and
+release metadata rather than relying on GitHub's Latest badge, select the highest stable
+application version, excluding asset tags and prereleases, and confirm its source tag resolves
+before pinning it (`TAG` is the selected `v`-prefixed release tag):
 
 ```bash
 gh api repos/frappe/helpdesk/tags --paginate --jq '.[].name'
