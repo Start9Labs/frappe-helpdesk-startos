@@ -145,7 +145,7 @@ export const redisReady = (sub: Sub, port: number) => async () => {
   const res = await sub.exec(['redis-cli', '-p', String(port), 'ping'])
   return res.exitCode === 0
     ? { result: 'success' as const, message: null }
-    : { result: 'loading' as const, message: null }
+    : { result: 'starting' as const, message: null }
 }
 
 export const mariadbReady = (sub: Sub) => async () => {
@@ -156,7 +156,7 @@ export const mariadbReady = (sub: Sub) => async () => {
   ])
   return res.exitCode === 0
     ? { result: 'success' as const, message: null }
-    : { result: 'loading' as const, message: null }
+    : { result: 'starting' as const, message: null }
 }
 
 // Pinned; bench would otherwise generate a random database name per site.
