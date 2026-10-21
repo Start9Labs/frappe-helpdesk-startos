@@ -34,3 +34,5 @@ RUN cp -r sites/assets assets && rm -rf sites/assets
 # Article keyword extraction fetches these from the internet on a scheduler tick otherwise.
 RUN env/bin/python -m nltk.downloader -d /home/frappe/nltk_data \
       averaged_perceptron_tagger_eng punkt_tab brown
+
+RUN env/bin/python -m pip install --no-cache-dir --upgrade 'certifi>=2026.10.19'
