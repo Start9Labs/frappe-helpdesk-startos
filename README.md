@@ -117,7 +117,7 @@ same origin.
 | --- | --- | --- | --- | --- |
 | `ui` | ui | 8080 | `/helpdesk` | The Helpdesk single-page app — the agent portal for staff, the customer portal for everyone else, chosen from the signed-in session. |
 
-The Frappe desk at `/app` and the sign-in page at `/login` are reachable on the same address.
+The Frappe desk at `/desk` and the sign-in page at `/login` are reachable on the same address.
 
 **Open UI** opens the interface at the primary address (see **Set Primary Address** below), so
 staff land on the origin Helpdesk builds its links from.

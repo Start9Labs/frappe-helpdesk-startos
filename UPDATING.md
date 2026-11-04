@@ -21,6 +21,12 @@ gh api repos/frappe/helpdesk/releases --paginate --jq '.[] | [.tag_name, .prerel
 git ls-remote https://github.com/frappe/helpdesk.git "refs/tags/$TAG"
 ```
 
+Helpdesk's stable release lines now match the Frappe framework major: `v15.*` uses
+`version-15`, and `v16.*` uses `version-16`. The package follows the newest stable line.
+The initial `v16.0.0` source tag has no GitHub release entry; compare tags for its changes.
+Do not mistake the line-number change from `v1.32.0` for a patch: moving to `v16.0.0`
+also moves the framework from Frappe 15 to 16 and needs the breaking-change pass.
+
 Two things move independently of it and are not pinned to a release:
 
 - **`telephony`**, which Helpdesk requires, publishes no tags at all. `apps.json` tracks its
@@ -33,9 +39,12 @@ Two things move independently of it and are not pinned to a release:
 ## Applying the bump
 
 1. Set the Helpdesk `branch` in `apps.json` to the new tag, `v`-prefixed.
-2. Set `version` in `startos/versions/current.ts` to the release without its `v`, with a `:0`
+2. Keep `Dockerfile`'s `FRAPPE_BRANCH` on the framework branch required by the selected
+   Helpdesk release. Confirm both `frappe/build` and `frappe/base` publish that tag for both
+   supported architectures before changing it.
+3. Set `version` in `startos/versions/current.ts` to the release without its `v`, with a `:0`
    downstream revision, and write its release notes.
-3. Rebuild and reinstall on a StartOS box. The bump runs `bench migrate` during init, so confirm
+4. Rebuild and reinstall on a StartOS box. The bump runs `bench migrate` during init, so confirm
    an installed instance survives the update, not just a fresh install.
 
 Re-check the progress markers in `startos/init/bootstrapHelpdesk.ts` when the framework branch

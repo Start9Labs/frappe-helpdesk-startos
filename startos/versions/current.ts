@@ -1,78 +1,63 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '1.31.1:0',
+  version: '16.0.0:0',
   releaseNotes: {
-    en_US: `Updated Frappe Helpdesk to 1.31.1 and the StartOS SDK to 3.1.1.
+    en_US: `Updated Frappe Helpdesk to 16.0.0, on Frappe Framework 16.
 
-**Security and upgrade requirements**
+- Notifications can be filtered by read state and category; settings navigation and ticket view switching are clearer.
+- Customer managers now have all customer permissions, including article feedback and ticket feedback options.
+- The Frappe administration desk is at /desk; Helpdesk remains at /helpdesk.
 
-- Ticket field permissions now prevent customers from changing agent-only fields through the REST API. Customers can only close tickets, leave feedback, or edit template fields marked Editable after creation. A description cannot be changed once set; ticket templates cannot be renamed.
-- Existing template visibility settings migrate automatically to Visible to (Everyone / Agents). This setting hides fields only on Helpdesk pages; use Customize Form permission levels to restrict REST API access too.
-- After updating, sites with custom staff roles must grant permission level 8 in Role Permission Manager where access to agent-only fields is needed. Review custom code that saves or reads tickets as a customer, or reads hide_from_customer: [migration guide](https://github.com/frappe/helpdesk/wiki/Migrating-customizations-for-ticket-field-permissions).
+**Before updating**
 
-**Fixes**
+Create a StartOS backup. The update migrates the existing site's database to Frappe 16. If you customized standard Frappe workspaces, copy their layouts with Copy to Clipboard before updating and restore them afterwards. Review custom scripts and integrations against the [Frappe 16 migration guide](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), especially permission hooks, database queries and state-changing API calls.
 
-- Ticket actions no longer wait for automatic emails to send; editor whitespace and inline images are handled more reliably.
-- The SDK fixes container startup for images without /proc or with a symlinked /etc/resolv.conf.
+[Helpdesk changes](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Frappe 16 migration guide](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
+    es_ES: `Actualizado Frappe Helpdesk a 16.0.0, sobre Frappe Framework 16.
 
-[Full upstream release notes](https://github.com/frappe/helpdesk/releases/tag/v1.31.1)`,
-    es_ES: `Actualizados Frappe Helpdesk a 1.31.1 y el SDK de StartOS a 3.1.1.
+- Las notificaciones pueden filtrarse por estado de lectura y categoría; la navegación de ajustes y el cambio de vista de tickets son más claros.
+- Los gestores de clientes disponen de todos los permisos de cliente, incluidos los comentarios sobre artículos y las opciones de valoración de tickets.
+- El escritorio de administración de Frappe está en /desk; Helpdesk sigue en /helpdesk.
 
-**Seguridad y requisitos de actualización**
+**Antes de actualizar**
 
-- Los permisos de los campos impiden que los clientes cambien campos exclusivos de agentes mediante la API REST. Los clientes solo pueden cerrar tickets, dejar valoraciones o editar campos de plantilla marcados como editables después de la creación. La descripción no puede cambiarse una vez establecida; las plantillas de tickets no pueden renombrarse.
-- La visibilidad de las plantillas existentes migra automáticamente a Visible para (Todos / Agentes). Este ajuste solo oculta campos en las páginas de Helpdesk; usa los niveles de permisos de Customize Form para restringir también el acceso por la API REST.
-- Tras actualizar, los sitios con roles de personal personalizados deben conceder el nivel de permisos 8 en Role Permission Manager cuando necesiten acceso a campos exclusivos de agentes. Revisa el código personalizado que guarda o lee tickets como cliente, o lee hide_from_customer: [guía de migración](https://github.com/frappe/helpdesk/wiki/Migrating-customizations-for-ticket-field-permissions).
+Crea una copia de seguridad en StartOS. La actualización migra la base de datos del sitio existente a Frappe 16. Si personalizaste espacios de trabajo estándar de Frappe, copia sus diseños con Copy to Clipboard antes de actualizar y restáuralos después. Revisa los scripts e integraciones personalizados con la [guía de migración a Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), especialmente los hooks de permisos, las consultas a la base de datos y las llamadas API que cambian datos.
 
-**Correcciones**
+[Cambios de Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Guía de migración a Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
+    de_DE: `Frappe Helpdesk auf 16.0.0 mit Frappe Framework 16 aktualisiert.
 
-- Las acciones de tickets ya no esperan al envío de correos automáticos; se mejora el tratamiento de espacios del editor e imágenes insertadas.
-- El SDK corrige el inicio de contenedores con imágenes sin /proc o con /etc/resolv.conf como enlace simbólico.
+- Benachrichtigungen lassen sich nach Lesestatus und Kategorie filtern; Einstellungsnavigation und Ticketansichtswechsel sind übersichtlicher.
+- Kundenmanager erhalten alle Kundenberechtigungen, einschließlich Artikelbewertungen und Ticketbewertungsoptionen.
+- Die Frappe-Verwaltungsoberfläche liegt unter /desk; Helpdesk bleibt unter /helpdesk.
 
-[Notas completas de la versión original](https://github.com/frappe/helpdesk/releases/tag/v1.31.1)`,
-    de_DE: `Frappe Helpdesk auf 1.31.1 und das StartOS-SDK auf 3.1.1 aktualisiert.
+**Vor dem Update**
 
-**Sicherheit und Hinweise zum Update**
+Ein StartOS-Backup erstellen. Das Update migriert die Datenbank der bestehenden Site auf Frappe 16. Angepasste Standard-Arbeitsbereiche von Frappe vor dem Update mit Copy to Clipboard kopieren und danach wiederherstellen. Eigene Skripte und Integrationen anhand der [Frappe-16-Migrationsanleitung](https://github.com/frappe/frappe/wiki/Migrating-to-version-16) prüfen, insbesondere Berechtigungs-Hooks, Datenbankabfragen und zustandsändernde API-Aufrufe.
 
-- Feldberechtigungen verhindern, dass Kunden über die REST-API agentenexklusive Ticketfelder ändern. Kunden können Tickets nur schließen, Feedback geben oder Vorlagenfelder bearbeiten, die nach der Erstellung bearbeitbar sind. Eine einmal gesetzte Beschreibung ist unveränderlich; Ticketvorlagen können nicht umbenannt werden.
-- Bestehende Sichtbarkeitseinstellungen werden automatisch nach Sichtbar für (Alle / Agenten) migriert. Dies verbirgt Felder nur auf Helpdesk-Seiten; REST-API-Zugriff muss zusätzlich über Berechtigungsstufen in Customize Form eingeschränkt werden.
-- Nach dem Update benötigen eigene Mitarbeiterrollen die Berechtigungsstufe 8 im Role Permission Manager, wenn sie auf agentenexklusive Felder zugreifen sollen. Eigenen Code prüfen, der Tickets als Kunde liest oder speichert oder hide_from_customer liest: [Migrationsanleitung](https://github.com/frappe/helpdesk/wiki/Migrating-customizations-for-ticket-field-permissions).
+[Helpdesk-Änderungen](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Frappe-16-Migrationsanleitung](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
+    pl_PL: `Zaktualizowano Frappe Helpdesk do 16.0.0 na Frappe Framework 16.
 
-**Fehlerbehebungen**
+- Powiadomienia można filtrować według stanu przeczytania i kategorii; poprawiono nawigację ustawień i przełączanie widoków zgłoszeń.
+- Menedżerowie klientów mają wszystkie uprawnienia klientów, w tym oceny artykułów i opcje oceny zgłoszeń.
+- Panel administracyjny Frappe jest dostępny pod /desk; Helpdesk pozostaje pod /helpdesk.
 
-- Ticketaktionen warten nicht mehr auf den Versand automatischer E-Mails; Leerraum im Editor und eingebettete Bilder werden zuverlässiger verarbeitet.
-- Das SDK behebt Containerstarts bei Images ohne /proc oder mit symbolisch verlinkter /etc/resolv.conf.
+**Przed aktualizacją**
 
-[Vollständige Upstream-Versionshinweise](https://github.com/frappe/helpdesk/releases/tag/v1.31.1)`,
-    pl_PL: `Zaktualizowano Frappe Helpdesk do 1.31.1 i SDK StartOS do 3.1.1.
+Utwórz kopię zapasową w StartOS. Aktualizacja migruje bazę danych istniejącej witryny do Frappe 16. Jeśli zmieniono standardowe obszary robocze Frappe, skopiuj ich układy przyciskiem Copy to Clipboard przed aktualizacją i przywróć je później. Sprawdź własne skrypty i integracje według [poradnika migracji do Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), zwłaszcza hooki uprawnień, zapytania do bazy danych i wywołania API zmieniające dane.
 
-**Bezpieczeństwo i wymagania aktualizacji**
+[Zmiany Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Poradnik migracji do Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
+    fr_FR: `Mise à jour de Frappe Helpdesk vers 16.0.0, sur Frappe Framework 16.
 
-- Uprawnienia pól uniemożliwiają klientom zmianę pól przeznaczonych dla agentów przez API REST. Klienci mogą jedynie zamykać zgłoszenia, wystawiać oceny lub edytować pola szablonu oznaczone jako edytowalne po utworzeniu. Ustawionego opisu nie można zmienić; nie można zmieniać nazw szablonów zgłoszeń.
-- Widoczność w istniejących szablonach jest automatycznie przenoszona do opcji Widoczne dla (Wszyscy / Agenci). Ukrywa ona pola tylko na stronach Helpdesk; dostęp przez API REST należy dodatkowo ograniczyć poziomami uprawnień w Customize Form.
-- Po aktualizacji witryny z własnymi rolami pracowników muszą przyznać poziom uprawnień 8 w Role Permission Manager tam, gdzie potrzebny jest dostęp do pól agentów. Sprawdź własny kod zapisujący lub odczytujący zgłoszenia jako klient albo odczytujący hide_from_customer: [poradnik migracji](https://github.com/frappe/helpdesk/wiki/Migrating-customizations-for-ticket-field-permissions).
+- Les notifications peuvent être filtrées par état de lecture et catégorie ; la navigation des paramètres et le changement de vue des tickets sont plus clairs.
+- Les responsables clients disposent de toutes les permissions des clients, notamment les avis sur les articles et les options d'évaluation des tickets.
+- Le bureau d'administration Frappe est accessible à /desk ; Helpdesk reste à /helpdesk.
 
-**Poprawki**
+**Avant la mise à jour**
 
-- Operacje na zgłoszeniach nie czekają już na wysłanie automatycznych e-maili; poprawiono obsługę odstępów w edytorze i osadzonych obrazów.
-- SDK naprawia uruchamianie kontenerów z obrazami bez /proc lub z dowiązaniem symbolicznym /etc/resolv.conf.
+Créez une sauvegarde StartOS. La mise à jour migre la base de données du site existant vers Frappe 16. Si vous avez personnalisé des espaces de travail standard de Frappe, copiez leurs mises en page avec Copy to Clipboard avant la mise à jour et restaurez-les ensuite. Vérifiez vos scripts et intégrations avec le [guide de migration Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), en particulier les hooks de permissions, les requêtes de base de données et les appels API modifiant des données.
 
-[Pełne informacje o wydaniu projektu](https://github.com/frappe/helpdesk/releases/tag/v1.31.1)`,
-    fr_FR: `Mise à jour de Frappe Helpdesk vers 1.31.1 et du SDK StartOS vers 3.1.1.
-
-**Sécurité et exigences de mise à jour**
-
-- Les permissions des champs empêchent les clients de modifier les champs réservés aux agents via l'API REST. Les clients peuvent uniquement fermer un ticket, donner un avis ou modifier les champs du modèle marqués comme modifiables après création. Une description déjà définie ne peut plus être modifiée ; les modèles de tickets ne peuvent plus être renommés.
-- Les réglages de visibilité existants migrent automatiquement vers Visible par (Tout le monde / Agents). Ce réglage masque les champs uniquement sur les pages Helpdesk ; utilisez les niveaux de permission de Customize Form pour restreindre aussi l'accès par l'API REST.
-- Après la mise à jour, les sites ayant des rôles de personnel personnalisés doivent accorder le niveau de permission 8 dans Role Permission Manager lorsque l'accès aux champs réservés aux agents est nécessaire. Vérifiez le code personnalisé qui lit ou enregistre des tickets en tant que client, ou lit hide_from_customer : [guide de migration](https://github.com/frappe/helpdesk/wiki/Migrating-customizations-for-ticket-field-permissions).
-
-**Corrections**
-
-- Les actions sur les tickets n'attendent plus l'envoi des e-mails automatiques ; les espaces de l'éditeur et les images intégrées sont mieux gérés.
-- Le SDK corrige le démarrage des conteneurs avec une image sans /proc ou avec un lien symbolique pour /etc/resolv.conf.
-
-[Notes de version complètes du projet](https://github.com/frappe/helpdesk/releases/tag/v1.31.1)`,
+[Modifications de Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Guide de migration Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
   },
   migrations: {
     up: async () => {},

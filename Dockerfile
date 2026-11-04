@@ -1,4 +1,4 @@
-ARG FRAPPE_BRANCH=version-15
+ARG FRAPPE_BRANCH=version-16
 
 FROM frappe/build:${FRAPPE_BRANCH} AS builder
 
@@ -6,7 +6,7 @@ ARG FRAPPE_BRANCH
 
 USER frappe
 
-COPY --chown=frappe:frappe apps.json /opt/frappe/apps.json
+COPY --chown=frappe:0 apps.json /opt/frappe/apps.json
 
 RUN bench init \
       --apps_path=/opt/frappe/apps.json \
@@ -24,7 +24,7 @@ FROM frappe/base:${FRAPPE_BRANCH} AS backend
 
 USER frappe
 
-COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
+COPY --from=builder --chown=frappe:0 /home/frappe/frappe-bench /home/frappe/frappe-bench
 
 WORKDIR /home/frappe/frappe-bench
 

@@ -21,7 +21,7 @@ export const sitesDir = `${benchDir}/sites`
 export const dbDir = '/var/lib/mysql'
 
 // uid:gid of the `frappe` user inside the image.
-export const frappeOwner = '1000:1000'
+export const frappeOwner = '1000:0'
 
 export const sitesMount = sdk.Mounts.of().mountVolume({
   volumeId: 'sites',
