@@ -8,6 +8,8 @@ export const current = VersionInfo.of({
 - Notifications can be filtered by read state and category; settings navigation and ticket view switching are clearer.
 - Customer managers now have all customer permissions, including article feedback and ticket feedback options.
 - The Frappe administration desk is at /desk; Helpdesk remains at /helpdesk.
+- Chrome PDF printing launches the browser directly for reliable cleanup after downloads.
+- Applies upstream's compatibility workaround for contact-creation conflicts during concurrent user updates; other application races can still occur.
 
 **Before updating**
 
@@ -19,6 +21,8 @@ Create a StartOS backup. The update migrates the existing site's database to Fra
 - Las notificaciones pueden filtrarse por estado de lectura y categoría; la navegación de ajustes y el cambio de vista de tickets son más claros.
 - Los gestores de clientes disponen de todos los permisos de cliente, incluidos los comentarios sobre artículos y las opciones de valoración de tickets.
 - El escritorio de administración de Frappe está en /desk; Helpdesk sigue en /helpdesk.
+- La impresión de PDF con Chrome inicia el navegador directamente para cerrarlo correctamente tras las descargas.
+- Aplica la solución de compatibilidad del proyecto original para conflictos al crear contactos durante actualizaciones simultáneas de usuarios; pueden persistir otras condiciones de carrera de la aplicación.
 
 **Antes de actualizar**
 
@@ -30,6 +34,8 @@ Crea una copia de seguridad en StartOS. La actualización migra la base de datos
 - Benachrichtigungen lassen sich nach Lesestatus und Kategorie filtern; Einstellungsnavigation und Ticketansichtswechsel sind übersichtlicher.
 - Kundenmanager erhalten alle Kundenberechtigungen, einschließlich Artikelbewertungen und Ticketbewertungsoptionen.
 - Die Frappe-Verwaltungsoberfläche liegt unter /desk; Helpdesk bleibt unter /helpdesk.
+- Der Chrome-PDF-Druck startet den Browser direkt, damit er nach Downloads zuverlässig beendet wird.
+- Übernimmt den Kompatibilitäts-Workaround des Upstream-Projekts für Konflikte bei der Kontakterstellung während gleichzeitiger Benutzeränderungen; andere Race Conditions der Anwendung können weiterhin auftreten.
 
 **Vor dem Update**
 
@@ -41,6 +47,8 @@ Ein StartOS-Backup erstellen. Das Update migriert die Datenbank der bestehenden 
 - Powiadomienia można filtrować według stanu przeczytania i kategorii; poprawiono nawigację ustawień i przełączanie widoków zgłoszeń.
 - Menedżerowie klientów mają wszystkie uprawnienia klientów, w tym oceny artykułów i opcje oceny zgłoszeń.
 - Panel administracyjny Frappe jest dostępny pod /desk; Helpdesk pozostaje pod /helpdesk.
+- Drukowanie PDF przez Chrome uruchamia przeglądarkę bezpośrednio, aby niezawodnie zamykała się po pobraniu pliku.
+- Zastosowano obejście zgodności zalecane przez projekt źródłowy dla konfliktów tworzenia kontaktów podczas równoczesnych zmian użytkowników; inne błędy współbieżności aplikacji nadal mogą wystąpić.
 
 **Przed aktualizacją**
 
@@ -52,6 +60,8 @@ Utwórz kopię zapasową w StartOS. Aktualizacja migruje bazę danych istniejąc
 - Les notifications peuvent être filtrées par état de lecture et catégorie ; la navigation des paramètres et le changement de vue des tickets sont plus clairs.
 - Les responsables clients disposent de toutes les permissions des clients, notamment les avis sur les articles et les options d'évaluation des tickets.
 - Le bureau d'administration Frappe est accessible à /desk ; Helpdesk reste à /helpdesk.
+- L'impression PDF avec Chrome lance directement le navigateur pour assurer sa fermeture après les téléchargements.
+- Applique le contournement de compatibilité du projet amont pour les conflits de création de contacts lors de modifications simultanées d'utilisateurs ; d'autres accès concurrents problématiques restent possibles.
 
 **Avant la mise à jour**
 

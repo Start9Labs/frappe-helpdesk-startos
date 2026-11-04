@@ -104,6 +104,7 @@ export const mariadbFlags = [
   '--character-set-server=utf8mb4',
   '--collation-server=utf8mb4_unicode_ci',
   '--skip-character-set-client-handshake',
+  '--innodb-snapshot-isolation=OFF',
 ]
 
 export const getMariadbEnv = (rootPassword: string) => ({
@@ -133,7 +134,7 @@ export const configuratorScript = (primaryOrigin: string | null) =>
     `bench set-config -g redis_queue redis://127.0.0.1:${redisQueuePort}`,
     `bench set-config -g redis_socketio redis://127.0.0.1:${redisQueuePort}`,
     `bench set-config -gp socketio_port ${socketioPort}`,
-    `bench set-config -g chromium_path /usr/bin/chromium-headless-shell`,
+    `bench set-config -g chromium_path /usr/lib/chromium/chromium-headless-shell`,
     ...(primaryOrigin
       ? [`bench set-config -g host_name ${primaryOrigin}`]
       : []),

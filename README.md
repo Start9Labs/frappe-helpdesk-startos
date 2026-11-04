@@ -42,7 +42,9 @@ resulting bench copied onto `frappe/base` — with `apps.json` pinning the Helpd
 architectures and bakes in the NLTK corpora that knowledge-base keyword extraction would
 otherwise download from the internet at runtime.
 
-MariaDB and Redis come from their official images, unmodified.
+MariaDB and Redis come from their official images, unmodified. MariaDB starts with
+`innodb_snapshot_isolation=OFF`, a compatibility workaround for concurrent contact updates;
+transactions and row locking remain enabled, but application races can still occur.
 
 Built for x86_64 and aarch64. The package supplies an explicit command to every daemon rather
 than using an image entrypoint.
@@ -90,10 +92,11 @@ One, and it is not upstream configuration a user would edit.
 | `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the URL chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
 
 The bench's global configuration — the database host and port, the three redis URLs, the
-socket.io port and `host_name` — is **not** a file model. The `configurator` oneshot re-asserts
+socket.io port, `host_name` and `chromium_path` — is **not** a file model. The `configurator` oneshot re-asserts
 it with `bench set-config` on every start, so a restored backup can never carry stale endpoints
 forward. A hand edit to `common_site_config.json` for any of those keys is overwritten on the
-next start; other keys in that file are left alone.
+next start; other keys in that file are left alone. `chromium_path` points directly to
+`/usr/lib/chromium/chromium-headless-shell`, bypassing Debian's shell wrapper.
 
 The `StartOS` Email Account is re-asserted the same way, by the `smtp` oneshot, from the
 `manage-smtp` selection. It claims `default_outgoing` only when no other account holds it, so a
