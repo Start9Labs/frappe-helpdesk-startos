@@ -1,73 +1,48 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '16.0.0:0',
+  version: '16.1.0:0',
   releaseNotes: {
-    en_US: `Updated Frappe Helpdesk to 16.0.0, on Frappe Framework 16.
+    en_US: `Updated Frappe Helpdesk to 16.1.0.
 
-- Notifications can be filtered by read state and category; settings navigation and ticket view switching are clearer.
-- Customer managers now have all customer permissions, including article feedback and ticket feedback options.
-- The Frappe administration desk is at /desk; Helpdesk remains at /helpdesk.
-- Chrome PDF printing launches the browser directly for reliable cleanup after downloads.
-- Applies upstream's compatibility workaround for contact-creation conflicts during concurrent user updates; other application races can still occur.
+- SLA working hours now support an optional break per workday. SLA timers pause during the break; open tickets pick up changed breaks when next updated.
+- Working hours follow the system time format, and the settings Save button stays visible on narrow screens.
 
-**Before updating**
+Requires StartOS 0.4.1 or later.
 
-Create a StartOS backup. The update migrates the existing site's database to Frappe 16. If you customized standard Frappe workspaces, copy their layouts with Copy to Clipboard before updating and restore them afterwards. Review custom scripts and integrations against the [Frappe 16 migration guide](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), especially permission hooks, database queries and state-changing API calls.
+[Full upstream release notes](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
+    es_ES: `Actualizado Frappe Helpdesk a 16.1.0.
 
-[Helpdesk changes](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Frappe 16 migration guide](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
-    es_ES: `Actualizado Frappe Helpdesk a 16.0.0, sobre Frappe Framework 16.
+- El horario de los SLA admite una pausa opcional por día laboral. Los temporizadores se detienen durante la pausa; los tickets abiertos incorporan los cambios en su próxima actualización.
+- El horario respeta el formato de hora del sistema y el botón Guardar de los ajustes sigue visible en pantallas estrechas.
 
-- Las notificaciones pueden filtrarse por estado de lectura y categoría; la navegación de ajustes y el cambio de vista de tickets son más claros.
-- Los gestores de clientes disponen de todos los permisos de cliente, incluidos los comentarios sobre artículos y las opciones de valoración de tickets.
-- El escritorio de administración de Frappe está en /desk; Helpdesk sigue en /helpdesk.
-- La impresión de PDF con Chrome inicia el navegador directamente para cerrarlo correctamente tras las descargas.
-- Aplica la solución de compatibilidad del proyecto original para conflictos al crear contactos durante actualizaciones simultáneas de usuarios; pueden persistir otras condiciones de carrera de la aplicación.
+Requiere StartOS 0.4.1 o posterior.
 
-**Antes de actualizar**
+[Notas completas de la versión original](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
+    de_DE: `Frappe Helpdesk auf 16.1.0 aktualisiert.
 
-Crea una copia de seguridad en StartOS. La actualización migra la base de datos del sitio existente a Frappe 16. Si personalizaste espacios de trabajo estándar de Frappe, copia sus diseños con Copy to Clipboard antes de actualizar y restáuralos después. Revisa los scripts e integraciones personalizados con la [guía de migración a Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), especialmente los hooks de permisos, las consultas a la base de datos y las llamadas API que cambian datos.
+- SLA-Arbeitszeiten unterstützen eine optionale Pause pro Arbeitstag. SLA-Zähler pausieren währenddessen; offene Tickets übernehmen geänderte Pausen bei ihrer nächsten Aktualisierung.
+- Arbeitszeiten verwenden das Zeitformat des Systems; die Speichern-Schaltfläche der Einstellungen bleibt auf schmalen Bildschirmen sichtbar.
 
-[Cambios de Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Guía de migración a Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
-    de_DE: `Frappe Helpdesk auf 16.0.0 mit Frappe Framework 16 aktualisiert.
+Erfordert StartOS 0.4.1 oder neuer.
 
-- Benachrichtigungen lassen sich nach Lesestatus und Kategorie filtern; Einstellungsnavigation und Ticketansichtswechsel sind übersichtlicher.
-- Kundenmanager erhalten alle Kundenberechtigungen, einschließlich Artikelbewertungen und Ticketbewertungsoptionen.
-- Die Frappe-Verwaltungsoberfläche liegt unter /desk; Helpdesk bleibt unter /helpdesk.
-- Der Chrome-PDF-Druck startet den Browser direkt, damit er nach Downloads zuverlässig beendet wird.
-- Übernimmt den Kompatibilitäts-Workaround des Upstream-Projekts für Konflikte bei der Kontakterstellung während gleichzeitiger Benutzeränderungen; andere Race Conditions der Anwendung können weiterhin auftreten.
+[Vollständige Upstream-Versionshinweise](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
+    pl_PL: `Zaktualizowano Frappe Helpdesk do 16.1.0.
 
-**Vor dem Update**
+- Godziny pracy SLA obsługują opcjonalną przerwę w każdym dniu roboczym. Liczniki SLA zatrzymują się na czas przerwy; otwarte zgłoszenia uwzględniają zmienione przerwy przy następnej aktualizacji.
+- Godziny pracy używają systemowego formatu czasu, a przycisk zapisu ustawień pozostaje widoczny na wąskich ekranach.
 
-Ein StartOS-Backup erstellen. Das Update migriert die Datenbank der bestehenden Site auf Frappe 16. Angepasste Standard-Arbeitsbereiche von Frappe vor dem Update mit Copy to Clipboard kopieren und danach wiederherstellen. Eigene Skripte und Integrationen anhand der [Frappe-16-Migrationsanleitung](https://github.com/frappe/frappe/wiki/Migrating-to-version-16) prüfen, insbesondere Berechtigungs-Hooks, Datenbankabfragen und zustandsändernde API-Aufrufe.
+Wymaga StartOS 0.4.1 lub nowszego.
 
-[Helpdesk-Änderungen](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Frappe-16-Migrationsanleitung](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
-    pl_PL: `Zaktualizowano Frappe Helpdesk do 16.0.0 na Frappe Framework 16.
+[Pełne informacje o wydaniu projektu](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
+    fr_FR: `Mise à jour de Frappe Helpdesk vers 16.1.0.
 
-- Powiadomienia można filtrować według stanu przeczytania i kategorii; poprawiono nawigację ustawień i przełączanie widoków zgłoszeń.
-- Menedżerowie klientów mają wszystkie uprawnienia klientów, w tym oceny artykułów i opcje oceny zgłoszeń.
-- Panel administracyjny Frappe jest dostępny pod /desk; Helpdesk pozostaje pod /helpdesk.
-- Drukowanie PDF przez Chrome uruchamia przeglądarkę bezpośrednio, aby niezawodnie zamykała się po pobraniu pliku.
-- Zastosowano obejście zgodności zalecane przez projekt źródłowy dla konfliktów tworzenia kontaktów podczas równoczesnych zmian użytkowników; inne błędy współbieżności aplikacji nadal mogą wystąpić.
+- Les horaires des SLA permettent une pause facultative par jour ouvré. Les compteurs SLA s'arrêtent pendant la pause ; les tickets ouverts prennent en compte les pauses modifiées lors de leur prochaine mise à jour.
+- Les horaires suivent le format horaire du système et le bouton d'enregistrement des paramètres reste visible sur les écrans étroits.
 
-**Przed aktualizacją**
+Nécessite StartOS 0.4.1 ou une version ultérieure.
 
-Utwórz kopię zapasową w StartOS. Aktualizacja migruje bazę danych istniejącej witryny do Frappe 16. Jeśli zmieniono standardowe obszary robocze Frappe, skopiuj ich układy przyciskiem Copy to Clipboard przed aktualizacją i przywróć je później. Sprawdź własne skrypty i integracje według [poradnika migracji do Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), zwłaszcza hooki uprawnień, zapytania do bazy danych i wywołania API zmieniające dane.
-
-[Zmiany Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Poradnik migracji do Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
-    fr_FR: `Mise à jour de Frappe Helpdesk vers 16.0.0, sur Frappe Framework 16.
-
-- Les notifications peuvent être filtrées par état de lecture et catégorie ; la navigation des paramètres et le changement de vue des tickets sont plus clairs.
-- Les responsables clients disposent de toutes les permissions des clients, notamment les avis sur les articles et les options d'évaluation des tickets.
-- Le bureau d'administration Frappe est accessible à /desk ; Helpdesk reste à /helpdesk.
-- L'impression PDF avec Chrome lance directement le navigateur pour assurer sa fermeture après les téléchargements.
-- Applique le contournement de compatibilité du projet amont pour les conflits de création de contacts lors de modifications simultanées d'utilisateurs ; d'autres accès concurrents problématiques restent possibles.
-
-**Avant la mise à jour**
-
-Créez une sauvegarde StartOS. La mise à jour migre la base de données du site existant vers Frappe 16. Si vous avez personnalisé des espaces de travail standard de Frappe, copiez leurs mises en page avec Copy to Clipboard avant la mise à jour et restaurez-les ensuite. Vérifiez vos scripts et intégrations avec le [guide de migration Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16), en particulier les hooks de permissions, les requêtes de base de données et les appels API modifiant des données.
-
-[Modifications de Helpdesk](https://github.com/frappe/helpdesk/compare/v1.31.1...v16.0.0) · [Guide de migration Frappe 16](https://github.com/frappe/frappe/wiki/Migrating-to-version-16)`,
+[Notes de version complètes du projet](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
   },
   migrations: {
     up: async () => {},
