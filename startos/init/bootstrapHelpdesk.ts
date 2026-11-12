@@ -175,8 +175,6 @@ function siteProgress(
         phase.setDone(Number(latest[2]))
       }
     },
-    // Either callback pipes all three streams, so stderr has to be drained too.
-    onStderr: (chunk: Buffer | string) => process.stderr.write(chunk),
   }
 }
 
