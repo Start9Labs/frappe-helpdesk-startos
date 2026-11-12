@@ -49,17 +49,17 @@ transactions and row locking remain enabled, but application races can still occ
 Built for x86_64 and aarch64. The package supplies an explicit command to every daemon rather
 than using an image entrypoint.
 
-| Subcontainer | Image | Purpose |
-| --- | --- | --- |
-| `seed-sites` | helpdesk | Populates the empty `sites` volume and links the compiled assets into it. Runs as root before anything else, on every start. |
-| `mariadb` | mariadb | The database. |
-| `redis-cache`, `redis-queue` | redis | Frappe's cache and its job queue / socket.io backplane. |
-| `configurator` | helpdesk | Writes the bench's database and redis endpoints. Runs on every start. |
-| `backend` | helpdesk | The gunicorn application server. |
-| `websocket` | helpdesk | The socket.io server behind live ticket updates. |
-| `scheduler` | helpdesk | Frappe's cron — SLA timers, auto-close, search indexing. |
-| `queue-short`, `queue-long` | helpdesk | RQ workers for background jobs, including email send and receive. |
-| `frontend` | helpdesk | nginx: serves assets, proxies the rest to `backend` and `websocket`. |
+| Subcontainer                 | Image    | Purpose                                                                                                                      |
+| ---------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `seed-sites`                 | helpdesk | Populates the empty `sites` volume and links the compiled assets into it. Runs as root before anything else, on every start. |
+| `mariadb`                    | mariadb  | The database.                                                                                                                |
+| `redis-cache`, `redis-queue` | redis    | Frappe's cache and its job queue / socket.io backplane.                                                                      |
+| `configurator`               | helpdesk | Writes the bench's database and redis endpoints. Runs on every start.                                                        |
+| `backend`                    | helpdesk | The gunicorn application server.                                                                                             |
+| `websocket`                  | helpdesk | The socket.io server behind live ticket updates.                                                                             |
+| `scheduler`                  | helpdesk | Frappe's cron — SLA timers, auto-close, search indexing.                                                                     |
+| `queue-short`, `queue-long`  | helpdesk | RQ workers for background jobs, including email send and receive.                                                            |
+| `frontend`                   | helpdesk | nginx: serves assets, proxies the rest to `backend` and `websocket`.                                                         |
 
 Init, backup and action work runs in its own short-lived subcontainers, named for what they do
 (`site-init`, `site-migrate`, `bench-set-password`, and the database and cache instances each of
@@ -73,11 +73,11 @@ may bind the same port.
 Three volumes. StartOS stops the service for the duration of a backup, so the database's data
 directory is quiescent and is copied as files rather than dumped.
 
-| Volume | Mount point | Contents |
-| --- | --- | --- |
+| Volume  | Mount point                       | Contents                                                                                           |
+| ------- | --------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `sites` | `/home/frappe/frappe-bench/sites` | The site directory: `site_config.json`, uploaded files and attachments, the site's encryption key. |
-| `db` | `/var/lib/mysql` | MariaDB's data directory. |
-| `main` | not mounted into any container | StartOS-side state — `store.json`. |
+| `db`    | `/var/lib/mysql`                  | MariaDB's data directory.                                                                          |
+| `main`  | not mounted into any container    | StartOS-side state — `store.json`.                                                                 |
 
 Every ticket, article, contact and setting is in the database. The `sites` volume holds the
 files attached to them and the key that decrypts stored passwords, so neither is useful without
@@ -87,8 +87,8 @@ the other.
 
 One, and it is not upstream configuration a user would edit.
 
-| Model | File | Ownership |
-| --- | --- | --- |
+| Model       | File                              | Ownership                                                                                                                                                                                                                                                |
+| ----------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the URL chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
 
 The bench's global configuration — the database host and port, the three redis URLs, the
@@ -116,9 +116,9 @@ One interface. The agent portal, the customer portal and the Frappe desk are all
 same nginx instance on the same port, so a second interface would only be a second link to the
 same origin.
 
-| Interface | Type | Port | Path | Serves |
-| --- | --- | --- | --- | --- |
-| `ui` | ui | 8080 | `/helpdesk` | The Helpdesk single-page app — the agent portal for staff, the customer portal for everyone else, chosen from the signed-in session. |
+| Interface | Type | Port | Path        | Serves                                                                                                                               |
+| --------- | ---- | ---- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `ui`      | ui   | 8080 | `/helpdesk` | The Helpdesk single-page app — the agent portal for staff, the customer portal for everyone else, chosen from the signed-in session. |
 
 The Frappe desk at `/desk` and the sign-in page at `/login` are reachable on the same address.
 

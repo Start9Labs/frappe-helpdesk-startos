@@ -48,7 +48,7 @@ Helpdesk, then **Email Accounts**, and add your mail provider's details. Helpdes
 credentials when you save, so a mistake tells you straight away.
 
 This is separate from the **Configure Email (SMTP)** action, which only decides how Helpdesk
-*sends* mail. A mailbox you set up here takes precedence over it for anything sent on a ticket,
+_sends_ mail. A mailbox you set up here takes precedence over it for anything sent on a ticket,
 which is what you want — replies then come from your support address and land back on the
 ticket.
 
