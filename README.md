@@ -38,9 +38,11 @@ agreements, with a knowledge base and saved replies alongside. Upstream is
 The application image is **built by this package from its own `Dockerfile`**, not pulled from a
 registry. It follows upstream's own layered recipe — `bench init` against `frappe/build`, the
 resulting bench copied onto `frappe/base` — with `apps.json` pinning the Helpdesk app and
-`telephony`, which Helpdesk requires. The package builds its own image for both supported
-architectures and bakes in the NLTK corpora that knowledge-base keyword extraction would
-otherwise download from the internet at runtime.
+`telephony`, which Helpdesk requires. Asset compilation uses `bench build --force` to install
+Frappe's frontend toolchain and build Helpdesk's Studio customer portal even when cached Frappe
+assets are available. The package builds its own image for both supported architectures and
+bakes in the NLTK corpora that knowledge-base keyword extraction would otherwise download from
+the internet at runtime.
 
 MariaDB and Redis come from their official images, unmodified. MariaDB starts with
 `innodb_snapshot_isolation=OFF`, a compatibility workaround for concurrent contact updates;
@@ -92,8 +94,8 @@ One, and it is not upstream configuration a user would edit.
 | `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the URL chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
 
 The bench's global configuration — the database host and port, the three redis URLs, the
-socket.io port, `host_name` and `chromium_path` — is **not** a file model. The `configurator` oneshot re-asserts
-it with `bench set-config` on every start, so a restored backup can never carry stale endpoints
+socket.io and gunicorn ports (`socketio_port`, `webserver_port`), `host_name` and `chromium_path`
+— is **not** a file model. The `configurator` oneshot re-asserts it with `bench set-config` on every start, so a restored backup can never carry stale endpoints
 forward. A hand edit to `common_site_config.json` for any of those keys is overwritten on the
 next start; other keys in that file are left alone. `chromium_path` points directly to
 `/usr/lib/chromium/chromium-headless-shell`, bypassing Debian's shell wrapper.
@@ -118,7 +120,7 @@ same origin.
 
 | Interface | Type | Port | Path        | Serves                                                                                                                               |
 | --------- | ---- | ---- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `ui`      | ui   | 8080 | `/helpdesk` | The Helpdesk single-page app — the agent portal for staff, the customer portal for everyone else, chosen from the signed-in session. |
+| `ui`      | ui   | 8080 | `/helpdesk` | The agent app; customer sessions redirect to the Studio portal at `/help`, which also serves the public knowledge base. |
 
 The Frappe desk at `/desk` and the sign-in page at `/login` are reachable on the same address.
 

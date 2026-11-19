@@ -8,15 +8,18 @@ USER frappe
 
 COPY --chown=frappe:0 apps.json /opt/frappe/apps.json
 
+# Cached Frappe assets omit the frontend dependencies required by Helpdesk's Studio portal.
 RUN bench init \
       --apps_path=/opt/frappe/apps.json \
       --frappe-branch=${FRAPPE_BRANCH} \
       --no-procfile \
       --no-backups \
       --skip-redis-config-generation \
+      --skip-assets \
       --verbose \
       /home/frappe/frappe-bench \
   && cd /home/frappe/frappe-bench \
+  && bench build --force \
   && echo "{}" > sites/common_site_config.json \
   && find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 

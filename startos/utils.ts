@@ -134,6 +134,7 @@ export const configuratorScript = (primaryOrigin: string | null) =>
     `bench set-config -g redis_queue redis://127.0.0.1:${redisQueuePort}`,
     `bench set-config -g redis_socketio redis://127.0.0.1:${redisQueuePort}`,
     `bench set-config -gp socketio_port ${socketioPort}`,
+    `bench set-config -gp webserver_port ${backendPort}`,
     `bench set-config -g chromium_path /usr/lib/chromium/chromium-headless-shell`,
     ...(primaryOrigin
       ? [`bench set-config -g host_name ${primaryOrigin}`]
