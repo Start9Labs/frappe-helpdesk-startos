@@ -1,48 +1,53 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '16.1.0:0',
+  version: '16.2.0:0',
   releaseNotes: {
-    en_US: `Updated Frappe Helpdesk to 16.1.0.
+    en_US: `Updated Frappe Helpdesk to 16.2.0.
 
-- SLA working hours now support an optional break per workday. SLA timers pause during the break; open tickets pick up changed breaks when next updated.
-- Working hours follow the system time format, and the settings Save button stays visible on narrow screens.
+- Redesigned customer portal, with a public knowledge base.
+- Knowledge base subcategories and pinned articles.
+- The ticket list can be grouped by a field, with counts and totals per group.
+- Agents can set a status that clears itself after a chosen time.
+- Splitting a ticket now requires write access to it, as merging already did.
 
-Requires StartOS 0.4.1 or later.
+[Full upstream release notes](https://github.com/frappe/helpdesk/releases/tag/v16.2.0)`,
+    es_ES: `Actualizado Frappe Helpdesk a 16.2.0.
 
-[Full upstream release notes](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
-    es_ES: `Actualizado Frappe Helpdesk a 16.1.0.
+- Portal de clientes rediseñado, con base de conocimiento pública.
+- Subcategorías y artículos fijados en la base de conocimiento.
+- La lista de tickets puede agruparse por un campo, con recuentos y totales por grupo.
+- Los agentes pueden fijar un estado que se borra solo tras el tiempo elegido.
+- Dividir un ticket ahora requiere permiso de escritura sobre él, como ya ocurría al fusionar.
 
-- El horario de los SLA admite una pausa opcional por día laboral. Los temporizadores se detienen durante la pausa; los tickets abiertos incorporan los cambios en su próxima actualización.
-- El horario respeta el formato de hora del sistema y el botón Guardar de los ajustes sigue visible en pantallas estrechas.
+[Notas completas de la versión original](https://github.com/frappe/helpdesk/releases/tag/v16.2.0)`,
+    de_DE: `Frappe Helpdesk auf 16.2.0 aktualisiert.
 
-Requiere StartOS 0.4.1 o posterior.
+- Neu gestaltetes Kundenportal mit öffentlicher Wissensdatenbank.
+- Unterkategorien und angeheftete Artikel in der Wissensdatenbank.
+- Die Ticketliste lässt sich nach einem Feld gruppieren, mit Anzahl und Summen je Gruppe.
+- Agenten können einen Status setzen, der sich nach einer gewählten Zeit selbst zurücksetzt.
+- Das Aufteilen eines Tickets erfordert jetzt Schreibrechte darauf, wie bereits beim Zusammenführen.
 
-[Notas completas de la versión original](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
-    de_DE: `Frappe Helpdesk auf 16.1.0 aktualisiert.
+[Vollständige Upstream-Versionshinweise](https://github.com/frappe/helpdesk/releases/tag/v16.2.0)`,
+    pl_PL: `Zaktualizowano Frappe Helpdesk do 16.2.0.
 
-- SLA-Arbeitszeiten unterstützen eine optionale Pause pro Arbeitstag. SLA-Zähler pausieren währenddessen; offene Tickets übernehmen geänderte Pausen bei ihrer nächsten Aktualisierung.
-- Arbeitszeiten verwenden das Zeitformat des Systems; die Speichern-Schaltfläche der Einstellungen bleibt auf schmalen Bildschirmen sichtbar.
+- Przeprojektowany portal klienta z publiczną bazą wiedzy.
+- Podkategorie i przypięte artykuły w bazie wiedzy.
+- Listę zgłoszeń można grupować według pola, z liczbą i sumami dla każdej grupy.
+- Agenci mogą ustawić status, który sam się czyści po wybranym czasie.
+- Podział zgłoszenia wymaga teraz uprawnień do jego edycji, tak jak już przy scalaniu.
 
-Erfordert StartOS 0.4.1 oder neuer.
+[Pełne informacje o wydaniu projektu](https://github.com/frappe/helpdesk/releases/tag/v16.2.0)`,
+    fr_FR: `Mise à jour de Frappe Helpdesk vers 16.2.0.
 
-[Vollständige Upstream-Versionshinweise](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
-    pl_PL: `Zaktualizowano Frappe Helpdesk do 16.1.0.
+- Portail client repensé, avec une base de connaissances publique.
+- Sous-catégories et articles épinglés dans la base de connaissances.
+- La liste des tickets peut être regroupée par champ, avec des comptes et des totaux par groupe.
+- Les agents peuvent définir un statut qui s'efface de lui-même après une durée choisie.
+- Scinder un ticket exige désormais un accès en écriture à celui-ci, comme c'était déjà le cas pour la fusion.
 
-- Godziny pracy SLA obsługują opcjonalną przerwę w każdym dniu roboczym. Liczniki SLA zatrzymują się na czas przerwy; otwarte zgłoszenia uwzględniają zmienione przerwy przy następnej aktualizacji.
-- Godziny pracy używają systemowego formatu czasu, a przycisk zapisu ustawień pozostaje widoczny na wąskich ekranach.
-
-Wymaga StartOS 0.4.1 lub nowszego.
-
-[Pełne informacje o wydaniu projektu](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
-    fr_FR: `Mise à jour de Frappe Helpdesk vers 16.1.0.
-
-- Les horaires des SLA permettent une pause facultative par jour ouvré. Les compteurs SLA s'arrêtent pendant la pause ; les tickets ouverts prennent en compte les pauses modifiées lors de leur prochaine mise à jour.
-- Les horaires suivent le format horaire du système et le bouton d'enregistrement des paramètres reste visible sur les écrans étroits.
-
-Nécessite StartOS 0.4.1 ou une version ultérieure.
-
-[Notes de version complètes du projet](https://github.com/frappe/helpdesk/releases/tag/v16.1.0)`,
+[Notes de version complètes du projet](https://github.com/frappe/helpdesk/releases/tag/v16.2.0)`,
   },
   migrations: {
     up: async () => {},
