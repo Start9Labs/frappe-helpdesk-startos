@@ -94,8 +94,8 @@ One, and it is not upstream configuration a user would edit.
 | `storeJson` | `store.json` on the `main` volume | Written only by this package. Holds the generated MariaDB root password, the Administrator password the `set-admin-password` action last issued, the URL chosen by `set-primary-url`, and the SMTP selection from `manage-smtp`. Never read by Helpdesk. |
 
 The bench's global configuration — the database host and port, the three redis URLs, the
-socket.io port, `host_name` and `chromium_path` — is **not** a file model. The `configurator` oneshot re-asserts
-it with `bench set-config` on every start, so a restored backup can never carry stale endpoints
+socket.io and gunicorn ports (`socketio_port`, `webserver_port`), `host_name` and `chromium_path`
+— is **not** a file model. The `configurator` oneshot re-asserts it with `bench set-config` on every start, so a restored backup can never carry stale endpoints
 forward. A hand edit to `common_site_config.json` for any of those keys is overwritten on the
 next start; other keys in that file are left alone. `chromium_path` points directly to
 `/usr/lib/chromium/chromium-headless-shell`, bypassing Debian's shell wrapper.

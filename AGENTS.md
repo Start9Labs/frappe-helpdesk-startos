@@ -69,5 +69,7 @@ verified, tried, and decided belongs in the commit message and the PR body.
   tick.
 - **`host_name` must be an origin** — frappe appends its own paths, while the interface's URLs carry
   `/helpdesk`. Pass `new URL(url).origin` of `bestUsable`.
+- **Keep `webserver_port` in `configuratorScript`.** The image's `common_site_config.json` starts
+  empty, and frappe's Studio renderer fails every `/help` request without it.
 - **Don't give the `StartOS` email account an IMAP folder.** Being outgoing-only is what keeps it
   behind any mailbox the user configures (`helpdesk/utils/email.py`).
