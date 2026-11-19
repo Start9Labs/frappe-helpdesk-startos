@@ -13,8 +13,9 @@ the knowledge base and the mailbox tickets arrive on — is set up inside Helpde
 upstream describes.
 
 The same address serves both sides of Helpdesk. Staff who sign in as agents get the agent
-portal; everyone else gets the customer portal, where they raise and follow their own tickets
-and read your help articles.
+portal at `/helpdesk`; customers are redirected to the portal at `/help`, where they raise and
+follow their own tickets and read your help articles. The knowledge base is also available to
+visitors at `/help` when public knowledge-base access is enabled in Helpdesk.
 
 ## Getting set up
 
