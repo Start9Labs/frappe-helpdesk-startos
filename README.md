@@ -37,12 +37,13 @@ agreements, with a knowledge base and saved replies alongside. Upstream is
 
 The application image is **built by this package from its own `Dockerfile`**, not pulled from a
 registry. It follows upstream's own layered recipe — `bench init` against `frappe/build`, the
-resulting bench copied onto `frappe/base` — with `apps.json` pinning the Helpdesk app and
-`telephony`, which Helpdesk requires. Asset compilation uses `bench build --force` to install
-Frappe's frontend toolchain and build Helpdesk's Studio customer portal even when cached Frappe
-assets are available. The package builds its own image for both supported architectures and
-bakes in the NLTK corpora that knowledge-base keyword extraction would otherwise download from
-the internet at runtime.
+resulting bench copied onto `frappe/base`. Both images are pinned by digest, and the Frappe
+framework, the Helpdesk app and `telephony` (which Helpdesk requires) by commit, so a rebuild of
+the same package version builds the same sources. Asset compilation uses `bench build --force` to
+install Frappe's frontend toolchain and build Helpdesk's Studio customer portal even when cached
+Frappe assets are available. The package builds its own image for both supported architectures and
+bakes in the NLTK corpora that knowledge-base keyword extraction would otherwise download from the
+internet at runtime.
 
 MariaDB and Redis come from their official images, unmodified. MariaDB starts with
 `innodb_snapshot_isolation=OFF`, a compatibility workaround for concurrent contact updates;
@@ -270,10 +271,6 @@ StartOS reinstalls a restored package stopped, so it has to be started.
    own, but upstream implements it as two apps sharing one Frappe site — it hooks ERPNext's
    `Customer` doctype directly and its settings carry no URL or API key. The StartOS ERPNext
    package is a separate site with a separate database, so there is nothing to point at.
-7. **The Frappe framework floats within its release branch at build time.** The Helpdesk app is
-   pinned to a release tag, but `telephony` publishes no tags and the framework's branch doubles
-   as the tag of the base images, so a rebuild of the same package version can carry newer
-   framework code. Published `.s9pk` artifacts are fixed.
 
 ---
 
