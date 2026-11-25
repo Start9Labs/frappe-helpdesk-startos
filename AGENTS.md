@@ -37,9 +37,9 @@ verified, tried, and decided belongs in the commit message and the PR body.
 - **Keep `startos/main.ts` in step with `compose.yaml` and `overrides/` in
   <https://github.com/frappe/frappe_docker>** — the daemon commands, env vars and startup ordering
   are taken from there.
-- **`FRAPPE_BRANCH` has to stay a branch name**, not a version tag: it also selects the tag of the
-  `frappe/build` and `frappe/base` images the `Dockerfile` starts from. Pinning frappe to a release
-  means pinning those images by digest instead.
+- **Don't put a remote URL, branch or tag back in `apps.json`** — the `*_COMMIT` args in the
+  `Dockerfile` are the pins, and `apps.json` must keep pointing at the local `pinned` copies they
+  fetch, or the build floats again.
 - **`seed-sites` has to run before everything else**, in `main.ts` and in both init chains — the
   `sites` volume arrives empty and root-owned, and `sites/assets` is a symlink it re-creates.
 - **Keep site creation in its `runUntilSuccess` chain**, not a plain `setupOnInit` step:

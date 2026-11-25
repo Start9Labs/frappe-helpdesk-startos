@@ -1,4 +1,4 @@
 [
-  { "url": "https://github.com/frappe/telephony", "branch": "develop" },
-  { "url": "https://github.com/frappe/helpdesk", "branch": "v16.2.1" }
+  { "url": "/home/frappe/src/telephony", "branch": "pinned" },
+  { "url": "/home/frappe/src/helpdesk", "branch": "pinned" }
 ]
