@@ -17,11 +17,11 @@ export const manifest = setupManifest({
       arch: ['x86_64', 'aarch64'],
     },
     mariadb: {
-      source: { dockerTag: 'mariadb:11.8.8' },
+      source: { dockerTag: 'mariadb:11.8.9' },
       arch: ['x86_64', 'aarch64'],
     },
     redis: {
-      source: { dockerTag: 'redis:8.6-alpine' },
+      source: { dockerTag: 'redis:8.12-alpine' },
       arch: ['x86_64', 'aarch64'],
     },
   },

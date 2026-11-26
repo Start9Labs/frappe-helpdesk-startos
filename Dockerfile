@@ -1,8 +1,8 @@
-FROM frappe/build:version-16@sha256:42e1459e79c6ba38851510a65ad0e6286dda54bf42f15329835772926c0ddc88 AS builder
+FROM frappe/build:version-16@sha256:0920ea61bfd96ab4b6b5d317163faeb2057088e405973c92afc91504c71bf4ef AS builder
 
 ARG FRAPPE_COMMIT=8b19f8c8e334b48e14ecee7231a1a98774c2ebd5
 ARG TELEPHONY_COMMIT=99c0c3b2cbd70246ed33295ebe8548e2ddded17d
-ARG HELPDESK_COMMIT=5c1eb7c0cbd948fa6df9c55cc6ad390bce70161f
+ARG HELPDESK_COMMIT=68d00645de26fa28fdb2e511785be7c1bc0e6a71
 
 USER frappe
 
@@ -34,7 +34,7 @@ RUN bench init \
   && echo "{}" > sites/common_site_config.json \
   && find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
-FROM frappe/base:version-16@sha256:f4a3d433593b8c62dfac5c48555d93bdd2b7a3875d3ef47d16e2248ef2d8a1cd AS backend
+FROM frappe/base:version-16@sha256:fb32a6cc24e4473fe7f72383e1bf1ac8bcc70e21603b3a43811765c2ab71368c AS backend
 
 USER frappe
 
